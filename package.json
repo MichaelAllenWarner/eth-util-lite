@@ -1,0 +1,26 @@
+{
+  "name": "eth-util-lite",
+  "version": "1.0.0",
+  "description": "Ethereum utility with very low dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelAllenWarner/eth-util-lite.git"
+  },
+  "keywords": [
+    "Ethereum",
+    "keccak",
+    "keccak256",
+    "rlp",
+    "buffer"
+  ],
+  "author": "Zac Mitton, Michael Allen Warner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MichaelAllenWarner/eth-util-lite/issues"
+  },
+  "homepage": "https://github.com/MichaelAllenWarner/eth-util-lite#readme"
+}
