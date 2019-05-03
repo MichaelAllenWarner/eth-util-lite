@@ -1,40 +1,62 @@
-const keccak256 = require('js-sha3').keccak256
-const BN = require('bn.js')
-const rlp = require('rlp')
-const Buffer = require('safe-buffer').Buffer
+const keccak256 = require('js-sha3').keccak256;
+const BN = require('bn.js');
+const rlp = require('rlp');
+const Buffer = require('safe-buffer').Buffer;
 
-const encode = (input) => {
-  return input === "0x0" ? rlp.encode(Buffer.from([])) : rlp.encode(input)
-}
+const KECCAK256_RLP_ARRAY = Buffer.from(
+  '1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+  'hex'
+);
 
-const decode = rlp.decode
+const KECCAK256_RLP_NULL = Buffer.from(
+  '56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+  'hex'
+);
 
-const toBuffer = (input) => {
-  return input === "0x0" ? Buffer.from([]) : _toBuffer(input)
-}
+const KECCAK256_NULL = Buffer.from(
+  'c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+  'hex'
+);
 
-const keccak = input => toBuffer(_keccak(input))
+const encode = input => (input === '0x0')
+  ? rlp.encode(Buffer.alloc(0))
+  : rlp.encode(input);
 
-const toHex = (input) => {
-  if (input instanceof Array) {
-    return toHex(encode(input))
-  } else {
-    return bufferToHex(input)
-  }
-}
+const decode = rlp.decode;
 
-const toWord = (input) => {
-  return setLengthLeft(toBuffer(input), 32)
-}
+const toBuffer = input => (input === '0x0')
+  ? Buffer.alloc(0)
+  : _toBuffer(input);
+
+const keccak = input => toBuffer(_keccak(input));
+
+const toHex = input => (input instanceof Array)
+  ? toHex(encode(input))
+  : bufferToHex(input);
+
+const toWord = input => setLengthLeft(toBuffer(input), 32);
 
 const mappingAt = (...keys) => { // first key is mapping's position
-  keys[0] = toWord(keys[0])
-  return toHex(keys.reduce((positionAccumulator, key) => {
-    return keccak(Buffer.concat([toWord(key), positionAccumulator]))
-  }))
-}
+  keys[0] = toWord(keys[0]);
+  const keysReducer = (positionAccumulator, key) => {
+    const buf = Buffer.concat([toWord(key), positionAccumulator]);
+    return keccak(buf);
+  };
+  return toHex(keys.reduce(keysReducer));
+};
 
-module.exports = { keccak, encode, decode, toBuffer, toHex, toWord, mappingAt }
+module.exports = {
+  keccak,
+  encode,
+  decode,
+  toBuffer,
+  toHex,
+  toWord,
+  mappingAt,
+  KECCAK256_RLP_ARRAY,
+  KECCAK256_RLP_NULL,
+  KECCAK256_NULL
+};
 
 
 // following 5 functions adapted or copied from ethereumjs-util

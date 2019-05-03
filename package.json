@@ -1,6 +1,6 @@
 {
   "name": "eth-util-lite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ethereum utility with very low dependencies",
   "main": "index.js",
   "scripts": {
