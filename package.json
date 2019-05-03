@@ -4,7 +4,7 @@
   "description": "Ethereum utility with very low dependencies",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,17 @@
     "rlp",
     "buffer"
   ],
-  "author": "Zac Mitton, Michael Allen Warner",
+  "author": "Michael Allen Warner",
+  "contributors": ["Zac Mitton"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MichaelAllenWarner/eth-util-lite/issues"
   },
-  "homepage": "https://github.com/MichaelAllenWarner/eth-util-lite#readme"
+  "homepage": "https://github.com/MichaelAllenWarner/eth-util-lite#readme",
+  "dependencies": {
+    "bn.js": "^4.11.8",
+    "js-sha3": "^0.8.0",
+    "rlp": "^2.2.3",
+    "safe-buffer": "^5.1.2"
+  }
 }
