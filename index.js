@@ -82,6 +82,9 @@ function _toBuffer(v) {
       else if (typeof v === 'number') {
           v = intToBuffer(v);
       }
+      else if (typeof v === 'boolean') {
+          v = Buffer.from(v ? intToBuffer(1) : intToBuffer(0));
+      }
       else if (v === null || v === undefined) {
           v = Buffer.allocUnsafe(0);
       }
